@@ -1,0 +1,42 @@
+{
+	"name": "nextjs-electric-sql",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"backend:start": "npx electric-sql start --with-postgres",
+		"backend:stop": "npx electric-sql stop",
+		"backend:up": "npx electric-sql start --with-postgres --detach",
+		"backend:down": "npx electric-sql stop --remove",
+		"client:generate": "npx electric-sql generate",
+		"client:watch": "npx electric-sql generate --watch",
+		"db:migrate": "npx electric-sql with-config \"npx pg-migrations apply --database {{ELECTRIC_PROXY}} --directory ./db/migrations\"",
+		"db:psql": "npx electric-sql psql",
+		"electric:start": "npx electric-sql start",
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"prebuild": "npx electric-sql generate"
+	},
+	"dependencies": {
+		"clsx": "^2.1.0",
+		"electric-sql": "^0.9.3",
+		"next": "14.1.4",
+		"react": "^18",
+		"react-dom": "^18",
+		"tailwind-merge": "^2.2.2",
+		"wa-sqlite": "github:rhashimoto/wa-sqlite#semver:^0.9.8"
+	},
+	"devDependencies": {
+		"@databases/pg-migrations": "^5.0.3",
+		"@types/node": "^20",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"autoprefixer": "^10.0.1",
+		"eslint": "^8",
+		"eslint-config-next": "14.1.4",
+		"postcss": "^8",
+		"tailwindcss": "^3.3.0",
+		"typescript": "^5"
+	}
+}
