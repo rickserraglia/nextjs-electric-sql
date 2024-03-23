@@ -12,6 +12,7 @@ import { Electric, Items as ItemType, schema } from '@/generated/client';
 import { ExamplePlaceholder } from './example-placeholder';
 import { Button } from './button';
 import { Item } from './item';
+import { cn } from '@/lib/utils';
 
 const { ElectricProvider, useElectric } = makeElectricContext<Electric>();
 
@@ -60,7 +61,7 @@ export const Example = () => {
 };
 
 const ExampleComponent = () => {
-	const { db } = useElectric()!;
+	const { db, isConnected } = useElectric()!;
 	const { results } = useLiveQuery(db.items.liveMany());
 
 	useEffect(() => {
@@ -95,6 +96,25 @@ const ExampleComponent = () => {
 
 	return (
 		<div className="h-[70lvh] md:h-[50lvh] w-full max-w-md flex flex-col gap-2 text-emerald-950 dark:text-emerald-200">
+			<div
+				className={cn(
+					'fixed left-1/2 -translate-x-1/2 top-2 text-[10px] inline-flex gap-1.5 items-center',
+					{ 'animate-pulse': !isConnected }
+				)}
+			>
+				{isConnected ? (
+					<>
+						<span className="w-2 h-2 bg-emerald-500 border border-emerald-500 rounded-full animate-pulse" />
+						<span>connected to the database</span>
+					</>
+				) : (
+					<>
+						<span className="w-2 h-2 bg-transparent border border-dashed border-e-neutral-500 rounded-full animate-spin" />
+						<span>connecting to the database</span>
+					</>
+				)}
+			</div>
+
 			<div className="flex flex-row items-center justify-between">
 				<Button className="rounded-r-none" onClick={addItem}>
 					<svg
